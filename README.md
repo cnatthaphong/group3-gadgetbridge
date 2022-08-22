@@ -19,7 +19,8 @@
 ## การศึกษาส่วน user interface
 Gadgetbridge เป็นโมไบล์แอพพลิเคชันบน Android โดยประกอบด้วยหน้าจอทั้งหมด X หน้าจอ ได้แก่
 ### หน้าจอหลัก
-<img src="/imgs/main_screen.jpg" align="left" height="480">
+หน้าจอหลักของ Gadgetbridge 
+<p><img src="/imgs/main_screen.jpg" align="left" height="480"></p>
 
 ## การศึกษาส่วนโค้ดที่เชื่อมกับ user interface
 การศึกษาความสัมพันธ์ระหว่าง UI และส่วนโค้ดพบความสัมพันธ์ดังนี้
