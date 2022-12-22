@@ -85,6 +85,15 @@ import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
+import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Callback;
+import retrofit2.converter.gson.GsonConverterFactory;
+import com.cn466.retrofit.FirebaseService;
+import com.cn466.retrofit.pojo.Record;
+import com.cn466.retrofit.pojo.FirebaseResponse;
+
 //TODO: extend AbstractGBActivity, but it requires actionbar that is not available
 public class ControlCenterv2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GBActivity {
@@ -106,6 +115,9 @@ public class ControlCenterv2 extends AppCompatActivity
     private boolean isLanguageInvalid = false;
     List<GBDevice> deviceList;
     private  HashMap<String,long[]> deviceActivityHashMap = new HashMap();
+
+
+
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -621,4 +633,19 @@ public class ControlCenterv2 extends AppCompatActivity
             return builder.create();
         }
     }
+
+
+    @Overrideprotected void onCreate(Bundle savedInstanceState) 
+    {//Firebase codeเพิ่มโค้ดช่วงท้าย
+        Retrofit retrofit= new Retrofit.Builder().baseUrl("https://?????.firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
+        FirebaseService service = retrofit.create(FirebaseService.class);
+        Record record = new Record("Supachai", 10);
+        Call<FirebaseResponse> call = service.appendRecord(record);
+        call.enqueue(new Callback<FirebaseResponse>() {
+            @Overridepublic void onResponse(Call<FirebaseResponse> call, Response<FirebaseResponse> response) {}
+            @Overridepublic void onFailure(Call<FirebaseResponse> call, Throwable t) {call.cancel();}
+        });
+    }
+
+
 }
