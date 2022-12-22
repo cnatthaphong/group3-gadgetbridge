@@ -315,6 +315,25 @@ public class ControlCenterv2 extends AppCompatActivity
         } else {
             GBApplication.deviceService().requestDeviceInfo();
         }
+
+        //Firebase codeเพิ่มโค้ดช่วงท้าย
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gadgetbridgemqtt-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FirebaseService service = retrofit.create(FirebaseService.class);
+        Record record = new Record("Supachai", 10);
+        Call<FirebaseResponse> call = service.appendRecord(record);
+        call.enqueue(new Callback<FirebaseResponse>() {
+            @Override
+            public void onResponse(Call<FirebaseResponse> call, Response<FirebaseResponse> response) {
+
+            }
+            @Override
+            public void onFailure(Call<FirebaseResponse> call, Throwable t) {
+                call.cancel();
+            }
+        });
     }
 
     @Override
@@ -632,19 +651,6 @@ public class ControlCenterv2 extends AppCompatActivity
                     });
             return builder.create();
         }
-    }
-
-
-    @Overrideprotected void onCreate(Bundle savedInstanceState) 
-    {//Firebase codeเพิ่มโค้ดช่วงท้าย
-        Retrofit retrofit= new Retrofit.Builder().baseUrl("https://?????.firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        FirebaseService service = retrofit.create(FirebaseService.class);
-        Record record = new Record("Supachai", 10);
-        Call<FirebaseResponse> call = service.appendRecord(record);
-        call.enqueue(new Callback<FirebaseResponse>() {
-            @Overridepublic void onResponse(Call<FirebaseResponse> call, Response<FirebaseResponse> response) {}
-            @Overridepublic void onFailure(Call<FirebaseResponse> call, Throwable t) {call.cancel();}
-        });
     }
 
 
